@@ -1,0 +1,28 @@
+Panel,Test Name,Unit,Reference Range,04/08/2025,07/09/2025,26/11/2025,28/01/2026,11/06/2026,21/07/2026,22/07/2026,29/07/2026,30/07/2026,22/09/2026
+Endocrine,HbA1c,%,< 5.7 (Normal),8.6 (H),-,7.6 (H),-,7.1 (H),6.4 (H),-,-,-,5.8 (N)
+Endocrine,Estimated Avg Glucose (eAG),mg/dL,< 116,200.1 (H),-,171.42 (H),-,157.1 (H),137.0 (H),-,-,-,119.8 (H)
+Endocrine,Glucose Fasting (FBS),mg/dL,70 - 99,181 (H),141 (H),121 (H),103 (H),131 (H),114 (H),-,-,-,114 (H)
+Endocrine,Glucose Post-Prandial (PPBS),mg/dL,< 140,229 (H),-,-,115 (N),254 (H),152 (H),-,-,-,138 (N)
+Endocrine,TSH (Ultrasensitive),µIU/mL,0.27 - 4.20,8.61 (H),-,5.72 (H),8.64 (H),-,2.78 (N),-,-,-,1.53 (N)
+Lipid Profile,Total Cholesterol,mg/dL,< 200,-,-,232 (H),-,191 (N),191 (N),-,-,-,170 (N)
+Lipid Profile,Triglycerides,mg/dL,< 150,-,-,351 (H),-,307 (H),307 (H),-,-,-,433 (H)
+Lipid Profile,HDL Cholesterol,mg/dL,40 - 60,-,-,37 (L),-,30 (L),30 (L),-,-,-,34 (L)
+Lipid Profile,LDL Cholesterol,mg/dL,< 100,-,-,124.8 (H),-,100 (N),100 (N),-,-,-,115 (H)
+Lipid Profile,Non-HDL Cholesterol,mg/dL,< 130,-,-,195 (H),-,161 (H),161 (H),-,-,-,136 (H)
+Liver Function,ALT (SGPT),U/L,0 - 41,66 (H),-,116 (H),-,100 (H),100 (H),-,-,-,107 (H)
+Liver Function,AST (SGOT),U/L,0 - 40,41 (H),-,67 (H),-,43 (H),43 (H),-,-,-,50 (H)
+Liver Function,Alkaline Phosphatase (ALP),U/L,40 - 130,-,-,89 (N),-,83 (N),83 (N),-,-,-,94 (N)
+Liver Function,Total Bilirubin,mg/dL,< 1.2,-,-,0.50 (N),-,0.6 (N),0.6 (N),-,-,-,0.27 (N)
+Liver Function,Gamma GT (GGT),U/L,8 - 61,-,-,70 (H),-,64 (H),64 (H),-,-,-,-
+Complete Blood Count,Hemoglobin (Hb),g/dL,13.0 - 17.0,-,-,16.2 (N),-,-,16.8 (N),-,-,-,15.2 (N)
+Complete Blood Count,Total Leukocyte Count (WBC),thou/µL,4.0 - 10.0,-,-,7.3 (N),-,-,7.9 (N),-,-,-,8.4 (N)
+Complete Blood Count,Platelet Count,thou/µL,150 - 410,-,-,292 (N),-,-,260 (N),-,160 (N),160 (N),286 (N)
+Complete Blood Count,Mean Corpuscular Volume (MCV),fL,83 - 101,-,-,88.7 (N),-,-,89.0 (N),-,-,-,87.7 (N)
+Renal & Misc,Serum Creatinine,mg/dL,0.90 - 1.30,-,-,0.94 (N),-,1.19 (N),1.19 (N),-,-,-,0.91 (N)
+Renal & Misc,Serum Uric Acid,mg/dL,3.4 - 7.0,4.2 (N),-,4.9 (N),-,5.7 (N),5.7 (N),-,-,-,6.0 (N)
+Renal & Misc,Erythrocyte Sedimentation Rate (ESR),mm/hr,0 - 10,-,-,5 (N),-,-,-,-,-,-,9 (N)
+Endocrine / Thyroid,Triiodothyronine (T3),ng/dL,35 - 193,-,-,90.4 (N),-,-,-,-,-,-,-
+Endocrine / Thyroid,Total Thyroxine (T4),µg/dL,4.87 - 11.2,-,-,9.46 (N),-,-,-,-,-,-,-
+Vitamins & Nutritional,Vitamin B12,pg/mL,187 - 883,-,-,214 (N),-,-,-,-,-,-,-
+Vitamins & Nutritional,Vitamin D 25-Hydroxy,ng/mL,> 30 (Sufficient),-,-,15.29 (L),-,-,-,-,-,-,-
+Miscellaneous,Prostate Specific Antigen (PSA) Total,ng/mL,< 4.0,-,-,0.227 (N),-,-,-,-,-,-,-
