@@ -166,7 +166,7 @@ html_template = """<!DOCTYPE html>
                 </label>
                 <div class="text-right hidden lg:block">
                     <div class="text-xs font-semibold text-slate-500">DataSource</div>
-                    # <div class="text-xs font-bold text-indigo-600">Loaded from data/data.csv</div>
+                    # <div class="text-xs font-bold text-indigo-600"></div>
                 </div>
             </div>
         </div>
@@ -182,7 +182,7 @@ html_template = """<!DOCTYPE html>
                 <div>
                     <h2 class="text-sm font-bold text-amber-900">Clinical Review Note (60-Second Snapshot)</h2>
                     <p class="text-xs text-amber-800 mt-1 leading-relaxed">
-                        HbA1c improved from peak <strong>8.6% (Aug 2025)</strong> (7.6% in Nov 2025 Visit Smart) down to normal <strong>5.8% by Sep 2026</strong>. Persistent hypertriglyceridemia and mild hepatocellular enzyme elevation require continued monitoring. TSH normalized from 8.61 to 1.53 µIU/mL.</code>.
+                        HbA1c improved from peak <strong>8.6% (Aug 2025)</strong> (7.6% in Nov 2025 Visit Smart) down to normal <strong>5.8% by Sep 2026</strong>. Persistent hypertriglyceridemia and mild hepatocellular enzyme elevation require continued monitoring. TSH normalized from 8.61 to 1.53 µIU/mL.</code>
                     </p>
                 </div>
             </div>
