@@ -65,7 +65,6 @@ for _, row in df.iterrows():
         if val_str == '-' or pd.isna(row[d]):
             test_data[d] = None
         else:
-            # Parse value and flag e.g., "8.6 (H)" -> val: 8.6, flag: 'H'
             if '(' in val_str and ')' in val_str:
                 parts = val_str.replace(')', '').split('(')
                 try:
@@ -112,7 +111,7 @@ for p_name, tests in panels_map.items():
 lab_dates_json = json.dumps(date_columns)
 clinical_panels_json = json.dumps(clinical_panels_js)
 
-html_code = f"""<!DOCTYPE html>
+html_template = """<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -121,26 +120,26 @@ html_code = f"""<!DOCTYPE html>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body {{ font-family: 'Inter', sans-serif; }}
-        .sticky-col {{
+        body { font-family: 'Inter', sans-serif; }
+        .sticky-col {
             position: sticky;
             left: 0;
             z-index: 20;
             background-color: white;
-        }}
-        .dark .sticky-col {{
+        }
+        .dark .sticky-col {
             background-color: #1f2937;
-        }}
-        .table-container::-webkit-scrollbar {{
+        }
+        .table-container::-webkit-scrollbar {
             height: 8px;
-        }}
-        .table-container::-webkit-scrollbar-track {{
+        }
+        .table-container::-webkit-scrollbar-track {
             background: #f1f5f9;
-        }}
-        .table-container::-webkit-scrollbar-thumb {{
+        }
+        .table-container::-webkit-scrollbar-thumb {
             background: #cbd5e1;
             border-radius: 4px;
-        }}
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col antialiased">
@@ -199,10 +198,10 @@ html_code = f"""<!DOCTYPE html>
     </footer>
 
 <script>
-    const labDates = {lab_dates_json};
-    const clinicalPanels = {clinical_panels_json};
+    const labDates = __LAB_DATES_JSON__;
+    const clinicalPanels = __CLINICAL_PANELS_JSON__;
 
-    function generateSparkline(dataObj) {{
+    function generateSparkline(dataObj) {
         const values = labDates.map(d => dataObj[d] ? dataObj[d].val : null).filter(v => v !== null && typeof v === 'number');
         if (values.length < 2) return '<span class="text-xs text-slate-400 italic">Single point</span>';
 
@@ -212,39 +211,39 @@ html_code = f"""<!DOCTYPE html>
         const width = 80;
         const height = 24;
 
-        const points = labDates.map((d, index) => {{
+        const points = labDates.map((d, index) => {
             const item = dataObj[d];
             if (!item || typeof item.val !== 'number') return null;
             const x = (index / (labDates.length - 1)) * width;
             const y = height - ((item.val - min) / range) * (height - 6) - 3;
-            return `${{x}},${{y}}`;
-        }}).filter(p => p !== null).join(' ');
+            return `${x},${y}`;
+        }).filter(p => p !== null).join(' ');
 
         return `
-            <svg width="${{width}}" height="${{height}}" class="inline-block overflow-visible">
-                <polyline fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="${{points}}" />
-                ${{labDates.map((d, index) => {{
+            <svg width="${width}" height="${height}" class="inline-block overflow-visible">
+                <polyline fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="${points}" />
+                ${labDates.map((d, index) => {
                     const item = dataObj[d];
                     if (!item || typeof item.val !== 'number') return '';
                     const x = (index / (labDates.length - 1)) * width;
                     const y = height - ((item.val - min) / range) * (height - 6) - 3;
                     const color = item.flag === 'H' ? '#ef4444' : (item.flag === 'L' ? '#3b82f6' : '#10b981');
-                    return `<circle cx="${{x}}" cy="${{y}}" r="3" fill="${{color}}" />`;
-                }}).join('')}}
+                    return `<circle cx="${x}" cy="${y}" r="3" fill="${color}" />`;
+                }).join('')}
             </svg>
         `;
     }
 
-    function renderDashboard() {{
+    function renderDashboard() {
         const container = document.getElementById('panelsContainer');
         container.innerHTML = '';
 
-        clinicalPanels.forEach(panel => {{
+        clinicalPanels.forEach(panel => {
             let panelHtml = `
                 <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden mb-6">
                     <div class="bg-slate-50 px-5 py-3 border-b border-slate-200 flex justify-between items-center">
-                        <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider">${{panel.title}}</h3>
-                        <span class="text-xs text-slate-500 font-medium">${{panel.tests.length}} Parameters Tracked</span>
+                        <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider">${panel.title}</h3>
+                        <span class="text-xs text-slate-500 font-medium">${panel.tests.length} Parameters Tracked</span>
                     </div>
                     <div class="table-container overflow-x-auto relative">
                         <table class="w-full text-left border-collapse text-xs">
@@ -253,42 +252,42 @@ html_code = f"""<!DOCTYPE html>
                                     <th class="py-3 px-4 sticky-col bg-slate-100 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.05)] min-w-[220px]">Test Name & Units</th>
                                     <th class="py-3 px-3 min-w-[110px] text-center">Reference Range</th>
                                     <th class="py-3 px-3 min-w-[100px] text-center">Trend (12M)</th>
-                                    ${{labDates.map(date => `<th class="py-3 px-3 text-center min-w-[90px] font-normal text-slate-600">${{date}}</th>`).join('')}}
+                                    ${labDates.map(date => `<th class="py-3 px-3 text-center min-w-[90px] font-normal text-slate-600">${date}</th>`).join('')}
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-100">
             `;
 
-            panel.tests.forEach(test => {{
+            panel.tests.forEach(test => {
                 panelHtml += `
-                    <tr class="test-row hover:bg-slate-50/80 transition-colors" data-has-abnormal="${{Object.values(test.data).some(d => d && d.flag !== 'N')}}">
+                    <tr class="test-row hover:bg-slate-50/80 transition-colors" data-has-abnormal="${Object.values(test.data).some(d => d && d.flag !== 'N')}">
                         <td class="py-3 px-4 sticky-col font-medium text-slate-900 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.05)]">
-                            ${{test.name}} <span class="text-slate-400 font-normal">(${{test.unit}})</span>
+                            ${test.name} <span class="text-slate-400 font-normal">(${test.unit})</span>
                         </td>
-                        <td class="py-3 px-3 text-center text-slate-500 font-mono">${{test.ref}}</td>
-                        <td class="py-3 px-3 text-center">${{generateSparkline(test.data)}}</td>
+                        <td class="py-3 px-3 text-center text-slate-500 font-mono">${test.ref}</td>
+                        <td class="py-3 px-3 text-center">${generateSparkline(test.data)}</td>
                 `;
 
-                labDates.forEach(date => {{
+                labDates.forEach(date => {
                     const res = test.data[date];
-                    if (!res) {{
+                    if (!res) {
                         panelHtml += `<td class="py-3 px-3 text-center text-slate-300">-</td>`;
-                    }} else {{
+                    } else {
                         let pillClass = "text-slate-700 font-normal";
                         let badge = "";
-                        if (res.flag === 'H') {{
+                        if (res.flag === 'H') {
                             pillClass = "bg-red-50 text-red-700 font-bold px-2 py-0.5 rounded-md border border-red-200";
                             badge = `<span class="ml-1 text-[10px] bg-red-600 text-white px-1 rounded">H</span>`;
-                        }} else if (res.flag === 'L') {{
+                        } else if (res.flag === 'L') {
                             pillClass = "bg-blue-50 text-blue-700 font-bold px-2 py-0.5 rounded-md border border-blue-200";
                             badge = `<span class="ml-1 text-[10px] bg-blue-600 text-white px-1 rounded">L</span>`;
-                        }}
-                        panelHtml += `<td class="py-3 px-3 text-center font-mono ${{pillClass}}">${{res.val}}${{badge}}</td>`;
-                    }}
-                }});
+                        }
+                        panelHtml += `<td class="py-3 px-3 text-center font-mono ${pillClass}">${res.val}${badge}</td>`;
+                    }
+                });
 
                 panelHtml += `</tr>`;
-            }});
+            });
 
             panelHtml += `
                             </tbody>
@@ -300,18 +299,18 @@ html_code = f"""<!DOCTYPE html>
         });
     }
 
-    function toggleOutOfRange() {{
+    function toggleOutOfRange() {
         const onlyAbnormal = document.getElementById('outOfRangeToggle').checked;
         const rows = document.querySelectorAll('.test-row');
         
-        rows.forEach(row => {{
+        rows.forEach(row => {
             const isAbnormal = row.getAttribute('data-has-abnormal') === 'true';
-            if (onlyAbnormal && !isAbnormal) {{
+            if (onlyAbnormal && !isAbnormal) {
                 row.style.display = 'none';
-            }} else {{
+            } else {
                 row.style.display = '';
-            }}
-        }});
+            }
+        });
     }
 
     window.onload = renderDashboard;
@@ -320,4 +319,5 @@ html_code = f"""<!DOCTYPE html>
 </html>
 """
 
+html_code = html_template.replace("__LAB_DATES_JSON__", lab_dates_json).replace("__CLINICAL_PANELS_JSON__", clinical_panels_json)
 components.html(html_code, height=1950, scrolling=True)
