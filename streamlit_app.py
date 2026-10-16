@@ -1,31 +1,4 @@
-import streamlit as st
-import streamlit.components.v1 as components
-
-st.set_page_config(
-    page_title="Clinical Lab Trends | Aravind Babu",
-    page_icon="🩺",
-    layout="wide",
-    initial_sidebar_state="collapsed"
-)
-
-# Remove default Streamlit padding and chrome for a clean full-bleed clinical dashboard
-st.markdown("""
-    <style>
-        #MainMenu {visibility: hidden;}
-        header {visibility: hidden;}
-        footer {visibility: hidden;}
-        .block-container {
-            padding: 0rem !important;
-            max-width: 100% !important;
-        }
-        iframe {
-            border: none !important;
-            width: 100% !important;
-        }
-    </style>
-""", unsafe_allow_html=True)
-
-HTML_CODE = """<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -1033,7 +1006,6 @@ HTML_CODE = """<!DOCTYPE html>
                     panel.tests.some(t => t.values[d.id] !== undefined)
                 );
 
-                // Sort tests by frequency (most tested first) within each section
                 const sortedTests = [...panel.tests].sort((a, b) => {
                     return Object.keys(b.values).length - Object.keys(a.values).length;
                 });
@@ -1130,6 +1102,3 @@ HTML_CODE = """<!DOCTYPE html>
     </script>
 </body>
 </html>
-"""
-
-components.html(HTML_CODE, height=3200, scrolling=True)
