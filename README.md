@@ -1,4 +1,4 @@
-# Clinical Lab Trends Dashboard
+# EMR Dashboard
 
 A Streamlit-hosted dashboard for viewing an individual's clinical laboratory results over time. Results are grouped into panels and shown in date-based tables with reference ranges, high/low flags, and numeric trend sparklines.
 
