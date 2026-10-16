@@ -54,10 +54,10 @@ HTML_CODE = """<!DOCTYPE html>
                         <span class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">30Y / Male</span>
                     </div>
                     <div class="text-xs text-slate-500 mono">
-                        IDs: <span class="text-slate-700 font-medium">ARAVM08129575 / 4025</span>
+                        IDs: <span class="text-slate-700 font-medium">ARAVM08129575 / 4025 / RCL14399837</span>
                     </div>
                     <div class="text-xs bg-amber-50 text-amber-900 border border-amber-200 px-2.5 py-1 rounded-md font-medium">
-                        <span class="font-bold">Clinical Focus:</span> T2DM Remission (HbA1c 8.6% &rarr; 5.8%) &bull; Hypothyroidism Normalized &bull; Hypertriglyceridemia &amp; Transaminases (&uarr; ALT/AST)
+                        <span class="font-bold">Clinical Focus:</span> T2DM Remission (HbA1c 8.6% &rarr; 5.8%) &bull; Hypothyroidism Normalized &bull; Hypertriglyceridemia &amp; Transaminases (&uarr; ALT/AST) &bull; Vit D Insufficiency
                     </div>
                 </div>
                 <div class="flex items-center justify-between sm:justify-end gap-3 pt-2 md:pt-0 border-t md:border-t-0 border-slate-100">
@@ -82,7 +82,7 @@ HTML_CODE = """<!DOCTYPE html>
                 <span class="inline-flex items-center gap-1.5"><span class="px-1.5 py-0.5 rounded bg-sky-50 text-sky-700 border border-sky-200 font-bold mono">L</span> Low / Below Ref</span>
                 <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-slate-300 inline-block"></span> Normal within Reference</span>
             </div>
-            <div class="text-slate-400 italic hidden sm:block">Scroll tables horizontally on mobile &bull; Dates ordered Oldest &rarr; Newest</div>
+            <div class="text-slate-400 italic hidden sm:block">Sorted by most frequently tested per section &bull; Dates ordered Oldest &rarr; Newest</div>
         </div>
 
         <div id="panelsContainer" class="space-y-6"></div>
@@ -93,6 +93,7 @@ HTML_CODE = """<!DOCTYPE html>
         const DATES = [
             { id: "2025-08-04", label: "04 Aug 25" },
             { id: "2025-09-07", label: "07 Sep 25" },
+            { id: "2025-11-26", label: "26 Nov 25" },
             { id: "2026-01-28", label: "28 Jan 26" },
             { id: "2026-05-15", label: "15 May 26" },
             { id: "2026-06-11", label: "11 Jun 26" },
@@ -106,32 +107,8 @@ HTML_CODE = """<!DOCTYPE html>
             {
                 id: "glycemic",
                 title: "Glycemic & Diabetes Control Panel",
-                subtitle: "HbA1c, eAG, Fasting & Post-Prandial Glucose",
+                subtitle: "Fasting & Post-Prandial Glucose, HbA1c & eAG",
                 tests: [
-                    {
-                        name: "HbA1c (Glycosylated Hb)",
-                        unit: "%",
-                        ref: "< 5.7 (Normal: 4.0-5.6)",
-                        sparkline: true,
-                        values: {
-                            "2025-08-04": { v: 8.6, flag: "H" },
-                            "2026-06-11": { v: 7.1, flag: "H" },
-                            "2026-07-21": { v: 6.4, flag: "H" },
-                            "2026-09-22": { v: 5.8, flag: "H" }
-                        }
-                    },
-                    {
-                        name: "Estimated Avg Glucose (eAG)",
-                        unit: "mg/dL",
-                        ref: "< 116.0",
-                        sparkline: true,
-                        values: {
-                            "2025-08-04": { v: 200.1, flag: "H" },
-                            "2026-06-11": { v: 157.1, flag: "H" },
-                            "2026-07-21": { v: 137.0, flag: "H" },
-                            "2026-09-22": { v: 119.8, flag: "H" }
-                        }
-                    },
                     {
                         name: "Glucose Fasting (FBS)",
                         unit: "mg/dL",
@@ -140,6 +117,7 @@ HTML_CODE = """<!DOCTYPE html>
                         values: {
                             "2025-08-04": { v: 181, flag: "H" },
                             "2025-09-07": { v: 141, flag: "H" },
+                            "2025-11-26": { v: 121, flag: "H" },
                             "2026-01-28": { v: 103, flag: "H" },
                             "2026-05-15": { v: 140, flag: "H" },
                             "2026-06-11": { v: 131, flag: "H" },
@@ -160,6 +138,32 @@ HTML_CODE = """<!DOCTYPE html>
                             "2026-07-21": { v: 152, flag: "H" },
                             "2026-09-22": { v: 138, flag: "N" }
                         }
+                    },
+                    {
+                        name: "HbA1c (Glycosylated Hb)",
+                        unit: "%",
+                        ref: "< 5.7 (Normal: 4.0-5.6)",
+                        sparkline: true,
+                        values: {
+                            "2025-08-04": { v: 8.6, flag: "H" },
+                            "2025-11-26": { v: 7.6, flag: "H" },
+                            "2026-06-11": { v: 7.1, flag: "H" },
+                            "2026-07-21": { v: 6.4, flag: "H" },
+                            "2026-09-22": { v: 5.8, flag: "H" }
+                        }
+                    },
+                    {
+                        name: "Estimated Avg Glucose (eAG)",
+                        unit: "mg/dL",
+                        ref: "< 116.0",
+                        sparkline: true,
+                        values: {
+                            "2025-08-04": { v: 200.1, flag: "H" },
+                            "2025-11-26": { v: 171.42, flag: "H" },
+                            "2026-06-11": { v: 157.1, flag: "H" },
+                            "2026-07-21": { v: 137.0, flag: "H" },
+                            "2026-09-22": { v: 119.8, flag: "H" }
+                        }
                     }
                 ]
             },
@@ -171,10 +175,11 @@ HTML_CODE = """<!DOCTYPE html>
                     {
                         name: "ALT / SGPT",
                         unit: "U/L",
-                        ref: "0 - 45",
+                        ref: "0 - 45 (Nov: 0-55)",
                         sparkline: true,
                         values: {
                             "2025-08-04": { v: 66, flag: "H" },
+                            "2025-11-26": { v: 116, flag: "H" },
                             "2026-07-21": { v: 100, flag: "H" },
                             "2026-09-22": { v: 107, flag: "H" }
                         }
@@ -182,48 +187,33 @@ HTML_CODE = """<!DOCTYPE html>
                     {
                         name: "AST / SGOT",
                         unit: "U/L",
-                        ref: "0 - 40",
+                        ref: "0 - 40 (Nov: 5-34)",
                         sparkline: true,
                         values: {
                             "2025-08-04": { v: 41, flag: "H" },
+                            "2025-11-26": { v: 67, flag: "H" },
                             "2026-07-21": { v: 43, flag: "H" },
                             "2026-09-22": { v: 50, flag: "H" }
                         }
                     },
                     {
-                        name: "Gamma GT (GGT)",
-                        unit: "U/L",
-                        ref: "8 - 61",
-                        sparkline: false,
-                        values: {
-                            "2026-07-21": { v: 64, flag: "H" }
-                        }
-                    },
-                    {
                         name: "Alkaline Phosphatase (ALP)",
                         unit: "U/L",
-                        ref: "40 - 130",
+                        ref: "40 - 130 (Nov: 50-116)",
                         sparkline: true,
                         values: {
+                            "2025-11-26": { v: 89, flag: "N" },
                             "2026-07-21": { v: 83, flag: "N" },
                             "2026-09-22": { v: 94, flag: "N" }
                         }
                     },
                     {
-                        name: "Lactate Dehydrogenase (LDH)",
-                        unit: "U/L",
-                        ref: "135 - 225",
-                        sparkline: false,
-                        values: {
-                            "2026-07-21": { v: 190, flag: "N" }
-                        }
-                    },
-                    {
                         name: "Bilirubin, Total",
                         unit: "mg/dL",
-                        ref: "< 1.1",
+                        ref: "< 1.1 (Nov: 0.2-1.2)",
                         sparkline: true,
                         values: {
+                            "2025-11-26": { v: 0.50, flag: "N" },
                             "2026-07-21": { v: 0.60, flag: "N" },
                             "2026-09-22": { v: 0.27, flag: "N" }
                         }
@@ -231,9 +221,10 @@ HTML_CODE = """<!DOCTYPE html>
                     {
                         name: "Bilirubin, Direct",
                         unit: "mg/dL",
-                        ref: "< 0.30",
+                        ref: "< 0.30 (Nov: 0.0-0.5)",
                         sparkline: true,
                         values: {
+                            "2025-11-26": { v: 0.23, flag: "N" },
                             "2026-07-21": { v: 0.26, flag: "N" },
                             "2026-09-22": { v: 0.11, flag: "N" }
                         }
@@ -241,9 +232,10 @@ HTML_CODE = """<!DOCTYPE html>
                     {
                         name: "Bilirubin, Indirect",
                         unit: "mg/dL",
-                        ref: "< 0.85",
+                        ref: "< 0.85 (Nov: 0.1-1.0)",
                         sparkline: true,
                         values: {
+                            "2025-11-26": { v: 0.27, flag: "N" },
                             "2026-07-21": { v: 0.34, flag: "N" },
                             "2026-09-22": { v: 0.16, flag: "N" }
                         }
@@ -254,6 +246,7 @@ HTML_CODE = """<!DOCTYPE html>
                         ref: "6.4 - 8.3",
                         sparkline: true,
                         values: {
+                            "2025-11-26": { v: 8.00, flag: "N" },
                             "2026-07-21": { v: 8.1, flag: "N" },
                             "2026-09-22": { v: 8.4, flag: "H" }
                         }
@@ -264,6 +257,7 @@ HTML_CODE = """<!DOCTYPE html>
                         ref: "3.5 - 5.2 (Jul: 3.97-4.94)",
                         sparkline: true,
                         values: {
+                            "2025-11-26": { v: 4.93, flag: "N" },
                             "2026-07-21": { v: 5.1, flag: "H" },
                             "2026-09-22": { v: 4.7, flag: "N" }
                         }
@@ -274,6 +268,7 @@ HTML_CODE = """<!DOCTYPE html>
                         ref: "2.0 - 3.5",
                         sparkline: true,
                         values: {
+                            "2025-11-26": { v: 3.07, flag: "N" },
                             "2026-07-21": { v: 3.0, flag: "N" },
                             "2026-09-22": { v: 3.7, flag: "H" }
                         }
@@ -284,8 +279,37 @@ HTML_CODE = """<!DOCTYPE html>
                         ref: "1.1 - 2.5",
                         sparkline: true,
                         values: {
+                            "2025-11-26": { v: 1.61, flag: "N" },
                             "2026-07-21": { v: 1.7, flag: "N" },
                             "2026-09-22": { v: 1.3, flag: "N" }
+                        }
+                    },
+                    {
+                        name: "Gamma GT (GGT)",
+                        unit: "U/L",
+                        ref: "8 - 61 (Nov: 12-64)",
+                        sparkline: true,
+                        values: {
+                            "2025-11-26": { v: 70, flag: "H" },
+                            "2026-07-21": { v: 64, flag: "H" }
+                        }
+                    },
+                    {
+                        name: "SGOT / SGPT Ratio",
+                        unit: "Ratio",
+                        ref: "Calculated",
+                        sparkline: false,
+                        values: {
+                            "2025-11-26": { v: 0.58, flag: "N" }
+                        }
+                    },
+                    {
+                        name: "Lactate Dehydrogenase (LDH)",
+                        unit: "U/L",
+                        ref: "135 - 225",
+                        sparkline: false,
+                        values: {
+                            "2026-07-21": { v: 190, flag: "N" }
                         }
                     }
                 ]
@@ -301,6 +325,7 @@ HTML_CODE = """<!DOCTYPE html>
                         ref: "< 150",
                         sparkline: true,
                         values: {
+                            "2025-11-26": { v: 351, flag: "H" },
                             "2026-07-21": { v: 307, flag: "H" },
                             "2026-09-22": { v: 433, flag: "H" }
                         }
@@ -311,6 +336,7 @@ HTML_CODE = """<!DOCTYPE html>
                         ref: "40 - 60",
                         sparkline: true,
                         values: {
+                            "2025-11-26": { v: 37, flag: "L" },
                             "2026-07-21": { v: 30, flag: "L" },
                             "2026-09-22": { v: 34, flag: "L" }
                         }
@@ -321,6 +347,7 @@ HTML_CODE = """<!DOCTYPE html>
                         ref: "< 200",
                         sparkline: true,
                         values: {
+                            "2025-11-26": { v: 232, flag: "H" },
                             "2026-07-21": { v: 191, flag: "N" },
                             "2026-09-22": { v: 170, flag: "N" }
                         }
@@ -331,6 +358,7 @@ HTML_CODE = """<!DOCTYPE html>
                         ref: "< 100 (Above Opt: 100-129)",
                         sparkline: true,
                         values: {
+                            "2025-11-26": { v: 124.8, flag: "H" },
                             "2026-07-21": { v: 100, flag: "N" },
                             "2026-09-22": { v: 115, flag: "H" }
                         }
@@ -341,6 +369,7 @@ HTML_CODE = """<!DOCTYPE html>
                         ref: "< 130 (Above Des: 130-159)",
                         sparkline: true,
                         values: {
+                            "2025-11-26": { v: 195, flag: "H" },
                             "2026-07-21": { v: 161, flag: "H" },
                             "2026-09-22": { v: 136, flag: "H" }
                         }
@@ -351,6 +380,7 @@ HTML_CODE = """<!DOCTYPE html>
                         ref: "<= 30.0",
                         sparkline: true,
                         values: {
+                            "2025-11-26": { v: 70.2, flag: "H" },
                             "2026-07-21": { v: 61.4, flag: "H" },
                             "2026-09-22": { v: 86.6, flag: "H" }
                         }
@@ -361,6 +391,7 @@ HTML_CODE = """<!DOCTYPE html>
                         ref: "< 5.0 (Low Risk: 3.3-4.4)",
                         sparkline: true,
                         values: {
+                            "2025-11-26": { v: 6.27, flag: "H" },
                             "2026-07-21": { v: 6.4, flag: "H" },
                             "2026-09-22": { v: 5.0, flag: "N" }
                         }
@@ -371,24 +402,35 @@ HTML_CODE = """<!DOCTYPE html>
                         ref: "0.5 - 3.0",
                         sparkline: true,
                         values: {
+                            "2025-11-26": { v: 3.37, flag: "H" },
                             "2026-07-21": { v: 3.3, flag: "H" },
                             "2026-09-22": { v: 3.4, flag: "H" }
+                        }
+                    },
+                    {
+                        name: "HDL / LDL Ratio",
+                        unit: "Ratio",
+                        ref: "0.5 - 3.0",
+                        sparkline: false,
+                        values: {
+                            "2025-11-26": { v: 0.3, flag: "L" }
                         }
                     }
                 ]
             },
             {
                 id: "thyroid",
-                title: "Thyroid Function Panel",
-                subtitle: "TSH (Ultrasensitive), Total T3 & Total T4",
+                title: "Thyroid & Vitamins Panel",
+                subtitle: "TSH (Ultrasensitive), Total T3, Total T4, Vitamin D & Vitamin B12",
                 tests: [
                     {
                         name: "TSH (Ultrasensitive)",
                         unit: "µIU/mL",
-                        ref: "0.270 - 4.200",
+                        ref: "0.270 - 4.200 (Nov: 0.35-4.94)",
                         sparkline: true,
                         values: {
                             "2025-08-04": { v: 8.61, flag: "H" },
+                            "2025-11-26": { v: 5.72, flag: "H" },
                             "2026-01-28": { v: 8.64, flag: "H" },
                             "2026-07-21": { v: 2.78, flag: "N" },
                             "2026-09-22": { v: 1.53, flag: "N" }
@@ -397,9 +439,10 @@ HTML_CODE = """<!DOCTYPE html>
                     {
                         name: "Total T3 (Triiodothyronine)",
                         unit: "ng/dL",
-                        ref: "80.0 - 200.0",
+                        ref: "80.0 - 200.0 (Nov: 35-193)",
                         sparkline: true,
                         values: {
+                            "2025-11-26": { v: 90.4, flag: "N" },
                             "2026-07-21": { v: 93.52, flag: "N" },
                             "2026-09-22": { v: 109.0, flag: "N" }
                         }
@@ -407,11 +450,30 @@ HTML_CODE = """<!DOCTYPE html>
                     {
                         name: "Total T4 (Thyroxine)",
                         unit: "µg/dL",
-                        ref: "4.5 - 12.1",
+                        ref: "4.5 - 12.1 (Nov: 4.87-11.2)",
                         sparkline: true,
                         values: {
+                            "2025-11-26": { v: 9.46, flag: "N" },
                             "2026-07-21": { v: 8.71, flag: "N" },
                             "2026-09-22": { v: 9.49, flag: "N" }
+                        }
+                    },
+                    {
+                        name: "Vitamin D (25-Hydroxy)",
+                        unit: "ng/mL",
+                        ref: "30 - 100 (Insuff: 10-30)",
+                        sparkline: false,
+                        values: {
+                            "2025-11-26": { v: 15.29, flag: "L" }
+                        }
+                    },
+                    {
+                        name: "Vitamin B12 (Cyanocobalamin)",
+                        unit: "pg/mL",
+                        ref: "187 - 883",
+                        sparkline: false,
+                        values: {
+                            "2025-11-26": { v: 214, flag: "N" }
                         }
                     }
                 ]
@@ -419,44 +481,48 @@ HTML_CODE = """<!DOCTYPE html>
             {
                 id: "kft",
                 title: "Metabolic & Kidney Function (KFT)",
-                subtitle: "Renal Markers, Uric Acid & Serum Electrolytes",
+                subtitle: "Uric Acid, Renal Markers, eGFR & Serum Electrolytes",
                 tests: [
-                    {
-                        name: "Creatinine, Serum",
-                        unit: "mg/dL",
-                        ref: "0.90 - 1.30",
-                        sparkline: true,
-                        values: {
-                            "2026-07-21": { v: 1.19, flag: "N" },
-                            "2026-09-22": { v: 0.91, flag: "N" }
-                        }
-                    },
                     {
                         name: "Uric Acid, Serum",
                         unit: "mg/dL",
-                        ref: "3.4 - 7.0",
+                        ref: "3.4 - 7.0 (Nov: 3.5-7.2)",
                         sparkline: true,
                         values: {
                             "2025-08-04": { v: 4.2, flag: "N" },
+                            "2025-11-26": { v: 4.9, flag: "N" },
                             "2026-07-21": { v: 5.7, flag: "N" },
                             "2026-09-22": { v: 6.0, flag: "N" }
                         }
                     },
                     {
+                        name: "Creatinine, Serum",
+                        unit: "mg/dL",
+                        ref: "0.90 - 1.30 (Nov: 0.72-1.25)",
+                        sparkline: true,
+                        values: {
+                            "2025-11-26": { v: 0.94, flag: "N" },
+                            "2026-07-21": { v: 1.19, flag: "N" },
+                            "2026-09-22": { v: 0.91, flag: "N" }
+                        }
+                    },
+                    {
                         name: "Blood Urea Nitrogen (BUN)",
                         unit: "mg/dL",
-                        ref: "6 - 20",
-                        sparkline: false,
+                        ref: "6 - 20 (Nov: 8.9-20.6)",
+                        sparkline: true,
                         values: {
+                            "2025-11-26": { v: 13.2, flag: "N" },
                             "2026-07-21": { v: 11, flag: "N" }
                         }
                     },
                     {
                         name: "BUN / Creatinine Ratio",
                         unit: "Ratio",
-                        ref: "5.0 - 15.0",
-                        sparkline: false,
+                        ref: "5.0 - 15.0 (Nov: 12-20)",
+                        sparkline: true,
                         values: {
+                            "2025-11-26": { v: 14.04, flag: "N" },
                             "2026-07-21": { v: 9.24, flag: "N" }
                         }
                     },
@@ -464,8 +530,9 @@ HTML_CODE = """<!DOCTYPE html>
                         name: "Calcium, Serum",
                         unit: "mg/dL",
                         ref: "8.4 - 10.2",
-                        sparkline: false,
+                        sparkline: true,
                         values: {
+                            "2025-11-26": { v: 9.7, flag: "N" },
                             "2026-07-21": { v: 9.9, flag: "N" }
                         }
                     },
@@ -473,8 +540,9 @@ HTML_CODE = """<!DOCTYPE html>
                         name: "Sodium, Serum",
                         unit: "mmol/L",
                         ref: "135 - 145",
-                        sparkline: false,
+                        sparkline: true,
                         values: {
+                            "2025-11-26": { v: 142, flag: "N" },
                             "2026-07-21": { v: 142.0, flag: "N" }
                         }
                     },
@@ -482,18 +550,56 @@ HTML_CODE = """<!DOCTYPE html>
                         name: "Potassium, Serum",
                         unit: "mmol/L",
                         ref: "3.5 - 5.5",
-                        sparkline: false,
+                        sparkline: true,
                         values: {
+                            "2025-11-26": { v: 3.9, flag: "N" },
                             "2026-07-21": { v: 4.19, flag: "N" }
                         }
                     },
                     {
                         name: "Chloride, Serum",
                         unit: "mmol/L",
-                        ref: "96 - 106",
+                        ref: "96 - 106 (Nov: 98-107)",
+                        sparkline: true,
+                        values: {
+                            "2025-11-26": { v: 103, flag: "N" },
+                            "2026-07-21": { v: 103.6, flag: "N" }
+                        }
+                    },
+                    {
+                        name: "eGFR (CKD-EPI)",
+                        unit: "mL/min/1.73m²",
+                        ref: ">= 90",
                         sparkline: false,
                         values: {
-                            "2026-07-21": { v: 103.6, flag: "N" }
+                            "2025-11-26": { v: 111.85, flag: "N" }
+                        }
+                    },
+                    {
+                        name: "Blood Urea",
+                        unit: "mg/dL",
+                        ref: "19 - 44.1",
+                        sparkline: false,
+                        values: {
+                            "2025-11-26": { v: 28.25, flag: "N" }
+                        }
+                    },
+                    {
+                        name: "Urea / Creatinine Ratio",
+                        unit: "Ratio",
+                        ref: "25.68 - 42.8",
+                        sparkline: false,
+                        values: {
+                            "2025-11-26": { v: 30.05, flag: "N" }
+                        }
+                    },
+                    {
+                        name: "Phosphorus, Serum",
+                        unit: "mg/dL",
+                        ref: "2.3 - 4.7",
+                        sparkline: false,
+                        values: {
+                            "2025-11-26": { v: 4.6, flag: "N" }
                         }
                     }
                 ]
@@ -501,7 +607,7 @@ HTML_CODE = """<!DOCTYPE html>
             {
                 id: "cbc",
                 title: "Complete Blood Count (CBC) & Hematology",
-                subtitle: "serial Platelets, RBC/WBC Indices & Differential",
+                subtitle: "Serial Platelets, RBC/WBC Indices, Differential & ESR",
                 tests: [
                     {
                         name: "Platelet Count",
@@ -509,6 +615,7 @@ HTML_CODE = """<!DOCTYPE html>
                         ref: "150 - 410",
                         sparkline: true,
                         values: {
+                            "2025-11-26": { v: 292, flag: "N" },
                             "2026-07-21": { v: 260, flag: "N" },
                             "2026-07-29": { v: 160, flag: "N" },
                             "2026-07-30": { v: 160, flag: "N" },
@@ -518,9 +625,10 @@ HTML_CODE = """<!DOCTYPE html>
                     {
                         name: "Mean Platelet Volume (MPV)",
                         unit: "fL",
-                        ref: "6.8 - 10.9",
+                        ref: "6.8 - 10.9 (Nov: 9.3-12.1)",
                         sparkline: true,
                         values: {
+                            "2025-11-26": { v: 9.4, flag: "N" },
                             "2026-07-21": { v: 7.7, flag: "N" },
                             "2026-09-22": { v: 11.1, flag: "H" }
                         }
@@ -531,6 +639,7 @@ HTML_CODE = """<!DOCTYPE html>
                         ref: "13.0 - 17.0",
                         sparkline: true,
                         values: {
+                            "2025-11-26": { v: 16.2, flag: "N" },
                             "2026-07-21": { v: 16.8, flag: "N" },
                             "2026-09-22": { v: 15.2, flag: "N" }
                         }
@@ -541,6 +650,7 @@ HTML_CODE = """<!DOCTYPE html>
                         ref: "4.5 - 5.5",
                         sparkline: true,
                         values: {
+                            "2025-11-26": { v: 5.20, flag: "N" },
                             "2026-07-21": { v: 5.40, flag: "N" },
                             "2026-09-22": { v: 5.23, flag: "N" }
                         }
@@ -551,6 +661,7 @@ HTML_CODE = """<!DOCTYPE html>
                         ref: "40 - 50",
                         sparkline: true,
                         values: {
+                            "2025-11-26": { v: 46.5, flag: "N" },
                             "2026-07-21": { v: 47.9, flag: "N" },
                             "2026-09-22": { v: 45.9, flag: "N" }
                         }
@@ -561,6 +672,7 @@ HTML_CODE = """<!DOCTYPE html>
                         ref: "83 - 101",
                         sparkline: true,
                         values: {
+                            "2025-11-26": { v: 88.7, flag: "N" },
                             "2026-07-21": { v: 89.0, flag: "N" },
                             "2026-09-22": { v: 87.7, flag: "N" }
                         }
@@ -571,6 +683,7 @@ HTML_CODE = """<!DOCTYPE html>
                         ref: "27.0 - 32.0",
                         sparkline: true,
                         values: {
+                            "2025-11-26": { v: 30.9, flag: "N" },
                             "2026-07-21": { v: 31.0, flag: "N" },
                             "2026-09-22": { v: 29.2, flag: "N" }
                         }
@@ -581,26 +694,29 @@ HTML_CODE = """<!DOCTYPE html>
                         ref: "31.5 - 34.5",
                         sparkline: true,
                         values: {
+                            "2025-11-26": { v: 34.8, flag: "H" },
                             "2026-07-21": { v: 34.2, flag: "N" },
                             "2026-09-22": { v: 33.2, flag: "N" }
                         }
                     },
                     {
-                        name: "Red Cell Dist. Width (RDW)",
+                        name: "Red Cell Dist. Width (RDW-CV)",
                         unit: "%",
                         ref: "11.6 - 14.0",
                         sparkline: true,
                         values: {
+                            "2025-11-26": { v: 13.8, flag: "N" },
                             "2026-07-21": { v: 13.4, flag: "N" },
                             "2026-09-22": { v: 12.7, flag: "N" }
                         }
                     },
                     {
-                        name: "White Blood Cell (WBC) Count",
+                        name: "White Blood Cell (WBC / TLC)",
                         unit: "thou/µL",
                         ref: "4.0 - 10.0",
                         sparkline: true,
                         values: {
+                            "2025-11-26": { v: 7.30, flag: "N" },
                             "2026-07-21": { v: 7.90, flag: "N" },
                             "2026-09-22": { v: 8.40, flag: "N" }
                         }
@@ -611,6 +727,7 @@ HTML_CODE = """<!DOCTYPE html>
                         ref: "40 - 80",
                         sparkline: true,
                         values: {
+                            "2025-11-26": { v: 52.6, flag: "N" },
                             "2026-07-21": { v: 51, flag: "N" },
                             "2026-09-22": { v: 54, flag: "N" }
                         }
@@ -621,6 +738,7 @@ HTML_CODE = """<!DOCTYPE html>
                         ref: "20 - 40",
                         sparkline: true,
                         values: {
+                            "2025-11-26": { v: 37.1, flag: "N" },
                             "2026-07-21": { v: 38, flag: "N" },
                             "2026-09-22": { v: 44, flag: "H" }
                         }
@@ -631,6 +749,7 @@ HTML_CODE = """<!DOCTYPE html>
                         ref: "2 - 10",
                         sparkline: true,
                         values: {
+                            "2025-11-26": { v: 8.6, flag: "N" },
                             "2026-07-21": { v: 7, flag: "N" },
                             "2026-09-22": { v: 1, flag: "L" }
                         }
@@ -641,17 +760,9 @@ HTML_CODE = """<!DOCTYPE html>
                         ref: "1 - 6",
                         sparkline: true,
                         values: {
+                            "2025-11-26": { v: 1.6, flag: "N" },
                             "2026-07-21": { v: 3, flag: "N" },
                             "2026-09-22": { v: 1, flag: "N" }
-                        }
-                    },
-                    {
-                        name: "Basophils",
-                        unit: "%",
-                        ref: "0 - 2",
-                        sparkline: false,
-                        values: {
-                            "2026-07-21": { v: 1, flag: "N" }
                         }
                     },
                     {
@@ -660,6 +771,7 @@ HTML_CODE = """<!DOCTYPE html>
                         ref: "2.0 - 7.0",
                         sparkline: true,
                         values: {
+                            "2025-11-26": { v: 3.84, flag: "N" },
                             "2026-07-21": { v: 4.03, flag: "N" },
                             "2026-09-22": { v: 4.54, flag: "N" }
                         }
@@ -670,6 +782,7 @@ HTML_CODE = """<!DOCTYPE html>
                         ref: "1.0 - 3.0",
                         sparkline: true,
                         values: {
+                            "2025-11-26": { v: 2.71, flag: "N" },
                             "2026-07-21": { v: 3.00, flag: "N" },
                             "2026-09-22": { v: 3.70, flag: "H" }
                         }
@@ -680,6 +793,7 @@ HTML_CODE = """<!DOCTYPE html>
                         ref: "0.2 - 1.0",
                         sparkline: true,
                         values: {
+                            "2025-11-26": { v: 0.63, flag: "N" },
                             "2026-07-21": { v: 0.55, flag: "N" },
                             "2026-09-22": { v: 0.08, flag: "L" }
                         }
@@ -690,50 +804,129 @@ HTML_CODE = """<!DOCTYPE html>
                         ref: "0.02 - 0.50",
                         sparkline: true,
                         values: {
+                            "2025-11-26": { v: 0.12, flag: "N" },
                             "2026-07-21": { v: 0.24, flag: "N" },
                             "2026-09-22": { v: 0.08, flag: "N" }
+                        }
+                    },
+                    {
+                        name: "Basophils",
+                        unit: "%",
+                        ref: "0 - 2",
+                        sparkline: true,
+                        values: {
+                            "2025-11-26": { v: 0.1, flag: "N" },
+                            "2026-07-21": { v: 1, flag: "N" }
+                        }
+                    },
+                    {
+                        name: "Absolute Basophil Count",
+                        unit: "thou/µL",
+                        ref: "0.0 - 0.1 (Nov: 0.02-0.5)",
+                        sparkline: true,
+                        values: {
+                            "2025-11-26": { v: 0.01, flag: "L" },
+                            "2026-07-21": { v: 0.08, flag: "N" }
                         }
                     },
                     {
                         name: "ESR (1 hr)",
                         unit: "mm/hr",
                         ref: "0 - 10",
+                        sparkline: true,
+                        values: {
+                            "2025-11-26": { v: 5, flag: "N" },
+                            "2026-09-22": { v: 9, flag: "N" }
+                        }
+                    },
+                    {
+                        name: "RDW-SD",
+                        unit: "fL",
+                        ref: "35.1 - 43.9",
                         sparkline: false,
                         values: {
-                            "2026-09-22": { v: 9, flag: "N" }
+                            "2025-11-26": { v: 42.8, flag: "N" }
+                        }
+                    },
+                    {
+                        name: "Plateletcrit (PCT)",
+                        unit: "%",
+                        ref: "0.17 - 0.32",
+                        sparkline: false,
+                        values: {
+                            "2025-11-26": { v: 0.3, flag: "N" }
+                        }
+                    },
+                    {
+                        name: "Platelet Dist. Width (PDW)",
+                        unit: "fL",
+                        ref: "8.3 - 25.0",
+                        sparkline: false,
+                        values: {
+                            "2025-11-26": { v: 15.6, flag: "N" }
+                        }
+                    },
+                    {
+                        name: "Platelet Large Cell Ratio (P-LCR)",
+                        unit: "%",
+                        ref: "18 - 50",
+                        sparkline: false,
+                        values: {
+                            "2025-11-26": { v: 30.4, flag: "N" }
+                        }
+                    },
+                    {
+                        name: "Platelet Large Cell Count (P-LCC)",
+                        unit: "10^9/L",
+                        ref: "44 - 140",
+                        sparkline: false,
+                        values: {
+                            "2025-11-26": { v: 89, flag: "N" }
+                        }
+                    },
+                    {
+                        name: "Mentzer Index",
+                        unit: "Index",
+                        ref: "> 13",
+                        sparkline: false,
+                        values: {
+                            "2025-11-26": { v: 17.06, flag: "N" }
                         }
                     }
                 ]
             },
             {
                 id: "misc",
-                title: "Urinalysis & Miscellaneous",
-                subtitle: "Complete Urine Examination (21 Jul 2026)",
+                title: "Urinalysis & Oncology / Miscellaneous",
+                subtitle: "Complete Urine Examination (26 Nov 25 & 21 Jul 26) & PSA Total",
                 tests: [
                     {
-                        name: "Urine Glucose (Benedict's)",
+                        name: "Urine Glucose",
                         unit: "Qual",
-                        ref: "Not Detected",
+                        ref: "Negative / Not Detected",
                         sparkline: false,
                         values: {
+                            "2025-11-26": { v: "Negative", flag: "N" },
                             "2026-07-21": { v: "Detected (+)", flag: "H" }
                         }
                     },
                     {
                         name: "Urine Protein / Ketones / Blood",
                         unit: "Qual",
-                        ref: "Not Detected",
+                        ref: "Negative / Not Detected",
                         sparkline: false,
                         values: {
+                            "2025-11-26": { v: "Negative", flag: "N" },
                             "2026-07-21": { v: "Not Detected", flag: "N" }
                         }
                     },
                     {
                         name: "Urine pH",
                         unit: "pH",
-                        ref: "4.7 - 7.5",
-                        sparkline: false,
+                        ref: "4.7 - 7.5 (Nov: 5.5-8.0)",
+                        sparkline: true,
                         values: {
+                            "2025-11-26": { v: 5.5, flag: "N" },
                             "2026-07-21": { v: 5.0, flag: "N" }
                         }
                     },
@@ -741,8 +934,9 @@ HTML_CODE = """<!DOCTYPE html>
                         name: "Urine Specific Gravity",
                         unit: "SG",
                         ref: "1.003 - 1.035",
-                        sparkline: false,
+                        sparkline: true,
                         values: {
+                            "2025-11-26": { v: 1.030, flag: "N" },
                             "2026-07-21": { v: 1.020, flag: "N" }
                         }
                     },
@@ -752,6 +946,7 @@ HTML_CODE = """<!DOCTYPE html>
                         ref: "0 - 5",
                         sparkline: false,
                         values: {
+                            "2025-11-26": { v: "2 - 3", flag: "N" },
                             "2026-07-21": { v: "2 - 3", flag: "N" }
                         }
                     },
@@ -761,7 +956,17 @@ HTML_CODE = """<!DOCTYPE html>
                         ref: "0 - 5",
                         sparkline: false,
                         values: {
+                            "2025-11-26": { v: "1 - 2", flag: "N" },
                             "2026-07-21": { v: "1 - 2", flag: "N" }
+                        }
+                    },
+                    {
+                        name: "Prostate Specific Antigen (PSA Total)",
+                        unit: "ng/mL",
+                        ref: "< 4.0 (<40Y: <1.4)",
+                        sparkline: false,
+                        values: {
+                            "2025-11-26": { v: 0.227, flag: "N" }
                         }
                     }
                 ]
@@ -828,7 +1033,12 @@ HTML_CODE = """<!DOCTYPE html>
                     panel.tests.some(t => t.values[d.id] !== undefined)
                 );
 
-                const filteredTests = panel.tests.filter(test => {
+                // Sort tests by frequency (most tested first) within each section
+                const sortedTests = [...panel.tests].sort((a, b) => {
+                    return Object.keys(b.values).length - Object.keys(a.values).length;
+                });
+
+                const filteredTests = sortedTests.filter(test => {
                     if (!onlyAbnormal) return true;
                     return Object.values(test.values).some(v => v.flag === 'H' || v.flag === 'L');
                 });
@@ -840,6 +1050,7 @@ HTML_CODE = """<!DOCTYPE html>
 
                 const rowsHTML = filteredTests.map(test => {
                     const hasAbnormal = Object.values(test.values).some(v => v.flag === 'H' || v.flag === 'L');
+                    const testCount = Object.keys(test.values).length;
                     const dateCells = activeDates.map(d => {
                         const entry = test.values[d.id];
                         return `<td class="px-3 py-2.5 text-center whitespace-nowrap border-b border-slate-100">${formatCell(entry)}</td>`;
@@ -847,10 +1058,13 @@ HTML_CODE = """<!DOCTYPE html>
 
                     return `
                         <tr class="hover:bg-slate-50/80 transition-colors group">
-                            <td class="sticky left-0 z-10 bg-white group-hover:bg-slate-50 px-3.5 py-2.5 border-b border-r border-slate-200 sticky-col-shadow min-w-[170px] max-w-[220px]">
-                                <div class="font-semibold text-xs sm:text-sm text-slate-800 flex items-center gap-1.5">
-                                    ${hasAbnormal ? '<span class="w-1.5 h-1.5 rounded-full bg-rose-500 shrink-0"></span>' : ''}
-                                    <span class="truncate" title="${test.name}">${test.name}</span>
+                            <td class="sticky left-0 z-10 bg-white group-hover:bg-slate-50 px-3.5 py-2.5 border-b border-r border-slate-200 sticky-col-shadow min-w-[180px] max-w-[240px]">
+                                <div class="font-semibold text-xs sm:text-sm text-slate-800 flex items-center justify-between gap-1.5">
+                                    <div class="flex items-center gap-1.5 truncate">
+                                        ${hasAbnormal ? '<span class="w-1.5 h-1.5 rounded-full bg-rose-500 shrink-0"></span>' : ''}
+                                        <span class="truncate" title="${test.name}">${test.name}</span>
+                                    </div>
+                                    <span class="text-[10px] font-normal text-slate-400 mono shrink-0 bg-slate-100 px-1 rounded">${testCount}x</span>
                                 </div>
                                 <div class="text-[11px] text-slate-400 mono md:hidden">Ref: ${test.ref} ${test.unit}</div>
                             </td>
@@ -886,7 +1100,7 @@ HTML_CODE = """<!DOCTYPE html>
                             <thead>
                                 <tr>
                                     <th class="sticky left-0 z-20 bg-slate-100 px-3.5 py-2.5 text-xs font-bold text-slate-700 uppercase tracking-wider border-b border-r border-slate-200 sticky-col-shadow">
-                                        Biomarker
+                                        Biomarker (Freq)
                                     </th>
                                     <th class="hidden md:table-cell px-3 py-2.5 text-xs font-semibold text-slate-600 uppercase tracking-wider bg-slate-100/80 border-b border-slate-200">
                                         Reference Range
@@ -918,4 +1132,4 @@ HTML_CODE = """<!DOCTYPE html>
 </html>
 """
 
-components.html(HTML_CODE, height=2800, scrolling=True)
+components.html(HTML_CODE, height=3200, scrolling=True)
